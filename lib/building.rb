@@ -14,8 +14,13 @@ class Building
     rents.sum.to_f / rents.length
   end
 
-  def renter_with_highest_rent
+  def get_occupied_units
     occupied_units = @units.find_all { |unit| unit.renter }
+    occupied_units
+  end
+
+  def renter_with_highest_rent
+    occupied_units = get_occupied_units
     highest_rent_renter = nil
     highest_rent = 0
     occupied_units.each do |unit|
@@ -25,6 +30,10 @@ class Building
       end
     end
     highest_rent_renter
+  end
+
+  def annual_breakdown
+
   end
 
 end
