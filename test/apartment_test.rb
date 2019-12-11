@@ -24,8 +24,7 @@ class ApartmentTest < Minitest::Test
   def test_it_can_add_a_renter
     renter1 = Renter.new("Jessie")
     @unit1.add_renter(renter1)
-    
+
     assert_equal renter1, @unit1.renter
   end
-
 end

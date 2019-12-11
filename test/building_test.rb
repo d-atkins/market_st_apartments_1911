@@ -59,10 +59,13 @@ class BuildingTest < Minitest::Test
     assert_equal [@unit1, @unit2, @unit3], @building.get_occupied_units
   end
 
-  def test_renter_with_highest_rent
+  def test_it_can_find_renter_with_highest_rent
     @building.add_unit(@unit1)
     @building.add_unit(@unit2)
     @building.add_unit(@unit3)
+
+    assert_nil @building.renter_with_highest_rent
+
     @unit2.add_renter(@renter1)
 
     assert_equal @renter1, @building.renter_with_highest_rent
@@ -77,7 +80,6 @@ class BuildingTest < Minitest::Test
   end
 
   def test_annual_breakdown
-    skip
     @building.add_unit(@unit1)
     @building.add_unit(@unit2)
     @building.add_unit(@unit3)
@@ -88,7 +90,7 @@ class BuildingTest < Minitest::Test
 
     @unit1.add_renter(@renter2)
     expected = {"Jessie" => 14400, "Spencer" => 11988}
+
     assert_equal expected, @building.annual_breakdown
   end
-
 end
