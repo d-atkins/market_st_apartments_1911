@@ -15,23 +15,18 @@ class Building
   end
 
   def get_occupied_units
-    occupied_units = @units.find_all { |unit| unit.renter }
-    occupied_units
+    @units.find_all { |unit| unit.renter }
   end
 
   def renter_with_highest_rent
     occupied_units = get_occupied_units
-    max_rent = occupied_units.map { |unit| unit.monthly_rent }.max
-    max_rent_unit = occupied_units.find { |unit| unit.monthly_rent == max_rent }
-    max_rent_unit.renter if max_rent_unit
+    occupied_units.max_by {|unit| unit.monthly_rent}.renter unless occupied_units.empty?
   end
 
   def annual_breakdown
-    occupied_units = get_occupied_units
-    breakdown = Hash.new
-    occupied_units.each do |unit|
-      breakdown[unit.renter.name] = unit.monthly_rent * 12
+    get_occupied_units.reduce({}) do |acc, unit|
+      acc[unit.renter.name] = unit.monthly_rent * 12
+      acc
     end
-    breakdown
   end
 end
